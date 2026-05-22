@@ -1,0 +1,30 @@
+name: test AWS Access
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  aws:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials using OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::498432337884:role/YourRoleName
+          role-session-name: GitHubActionsOIDCSession
+
+      - name: Verify AWS identity
+        run: aws sts get-caller-identity
+        shell: bash
