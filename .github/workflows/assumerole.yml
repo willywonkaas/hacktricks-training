@@ -1,4 +1,4 @@
-name: "Test AWS Access"
+name: "Test AWS Access whitebox"
 
 on:
   pull_request:
