@@ -1,4 +1,4 @@
-name: "Print OIDC Token"
+name: "Print OIDC Token run"
 
 on:
   workflow_dispatch:
