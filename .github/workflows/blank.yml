@@ -1,0 +1,27 @@
+name: "Test AWS Access"
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  aws:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: eu-west-1
+          role-to-assume: arn:aws:iam::498432337884:role/whitebox-lab-2-github-actions-role
+          role-session-name: OIDCSession
+
+      - name: Who am I
+        run: aws sts get-caller-identity
